@@ -51,6 +51,19 @@
 - user_id - 8 Б
 - reaction_id - 8 Б
 
+### User
+- id - 8 Б
+- name - 32 Б
+- avatar 8 Б
+- bio 500 Б
+
+### Location
+- id - 8 Б
+- lat - 8 Б
+- lon - 8 Б
+- title - 32 Б
+- description - 500 Б
+
 ## Расчет нагрузки
 
 ### RPS
@@ -63,9 +76,13 @@
 - Reaction (`write`) (10 000 000 * 15) / 86400 = 1736 RPS
 - Reaction (`read`) (10 000 000 * 20) / 86400 = 2315 RPS
 
+- User (`read`) (10 000 000 * 5) / 86400 = 579 RPS
+
+- Location (`read`) (10 000 000 * 10) / 86400 = 1157 RPS
+
 ### Трафик
-- Post (`write`) 116 RPS * 900 Б = 104400 КБ/с = 104 МБ/с
-- Post (`read`) 2315 RPS * 900 Б = 2083500 КБ/с = 2083.5 МБ/с = 2 ГБ/с
+- Post (`write`) 116 RPS * 900 Б = 104400 Б/с = 104 КБ/с
+- Post (`read`) 2315 RPS * 900 Б = 2083500 Б/с = 2083.5 КБ/с = 2 МБ/с
 
 - Comment (`write`) 579 RPS * 216 Б = 125 КБ/с
 - Comment (`read`) 3472 RPS * 216 Б = 750 КБ/с
@@ -73,6 +90,9 @@
 - Reaction (`write`) 1736 RPS * 32 Б = 56 КБ/с
 - Reaction (`read`) 2315 RPS * 32 Б = 74 КБ/с
 
+- User (`read`) 579 RPS * 550 Б = 318 КБ/с
+
+- Location (`read`) 1157 RPS * 564 Б = 652 КБ/с
 
 ### Соединения
 - Соединения 10 000 000 * 0.1 = 1 000 000
