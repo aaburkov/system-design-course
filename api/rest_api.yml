@@ -88,6 +88,42 @@ paths:
           description: Bad Request
         '500':
           description: Server Error
+  /image/upload:
+    post:
+      summary: Upload New image
+      tags:
+        - posts
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                  fileUrl:
+                    type: string
+        '401':
+          description: Access Denied
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
   /comments:
     post:
       summary: Add a comment
@@ -120,6 +156,20 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Number of items per page
       responses:
         '200':
           description: Ok
@@ -202,11 +252,49 @@ paths:
           description: Bad Request
         '500':
           description: Server Error
+    delete:
+      summary: Unsubscribe to a user
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetUserId:
+                  type: string
+                  format: uuid
+        required: true
+      responses:
+        '200':
+          description: Ok
+        '401':
+          description: Access Denied
+        '400':
+          description: Bad Request
+        '500':
+          description: Server Error
   /feed:
     get:
       summary: Get user feed
       tags:
         - feed
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: Number of items per page
       responses:
         '200':
           description: Ok
